@@ -8,7 +8,7 @@ Dataset also includes protein sequence embeddings for i. regular protein alphabe
 
 ## Feature engineering
 
-![img.pdf](img.png)
+![img.png](img.png)
 
 All the feature engineering methods could be found in "main.py".
 
