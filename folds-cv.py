@@ -3,12 +3,9 @@ from main import create_model_data
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 import time
-from sklearn.metrics import classification_report
-from sklearn.metrics import matthews_corrcoef
 import itertools
 from sklearn.svm import SVC
 from sklearn.model_selection import StratifiedKFold
-from sklearn.metrics import f1_score
 from evaluation import classification_report
 
 def get_combinations(lst):
@@ -76,4 +73,4 @@ if __name__ == "__main__":
 
     r_df = r_df.sort_values(['f1_score', 'nfeat'], ascending=[False, True])
 
-    r_df.to_csv(f"results/results_cv_stratified{folds}_folds{model_name}_amp_testing.csv", index=False)
+    r_df.to_csv(f"results/results_cv_stratified{folds}_folds_{model_name}_amp.csv", index=False)
