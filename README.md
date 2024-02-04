@@ -8,10 +8,13 @@ Dataset also includes protein sequence embeddings for i. regular protein alphabe
 
 ## Feature engineering
 
+![img.png](img.png)
+
 All the feature engineering methods could be found in "main.py".
 
 ## Quick setup
 
 1. Install the required python packages : `pip install -r requirement.txt`
 2. Run the script "extract_feat.py". It will create a pickle file "features_amp.pkl" 
-3. Run "folds-cv.py" to perform 10 folds cross validation as given in the manuscript. It will return a results csv file with random-forest model used for evaluation.
+3. Run "folds-cv.py" to perform 10 folds cross validation as given in the manuscript. It will return a csv file in results directory containing several metrics used for evaluation.
+
