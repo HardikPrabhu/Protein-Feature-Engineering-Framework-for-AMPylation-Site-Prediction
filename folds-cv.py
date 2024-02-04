@@ -11,26 +11,6 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import f1_score
 from evaluation import classification_report
 
-
-def calculate_counts(y_actual, y_predict):
-    tp = 0
-    fp = 0
-    tn = 0
-    fn = 0
-
-    for actual, predict in zip(y_actual, y_predict):
-        if actual == 1 and predict == 1:
-            tp += 1
-        elif actual == 0 and predict == 1:
-            fp += 1
-        elif actual == 0 and predict == 0:
-            tn += 1
-        elif actual == 1 and predict == 0:
-            fn += 1
-
-    return tp, fp, tn, fn
-
-
 def get_combinations(lst):
     combinations = []
     for r in range(1, len(lst) + 1):
