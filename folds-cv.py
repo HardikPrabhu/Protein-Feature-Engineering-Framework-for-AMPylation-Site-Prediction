@@ -1,7 +1,6 @@
 import pickle
 from main import create_model_data
 import pandas as pd
-import time
 import itertools
 from sklearn.model_selection import StratifiedKFold
 from evaluation import classification_report
@@ -48,7 +47,6 @@ if __name__ == "__main__":
                     test_X = data[test_index_vals]
                     test_y = y_data.iloc[test_index_vals]
                     feature_len = train_X.shape[-1]
-                    start_time = time.time()
                     model = Model(model_name, input_dim=train_X.shape[1])
                     model.fit(train_X, train_y)
                     pred = model.predict(test_X)
