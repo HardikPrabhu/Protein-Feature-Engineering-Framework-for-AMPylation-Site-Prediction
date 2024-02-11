@@ -1,7 +1,10 @@
 import pandas as pd
-
 import pickle
 from main import create_vector, create_co_matrix, create_text_features, create_counts
+
+"""
+Script to extract features and store it as a pickle file
+"""
 
 # alpha reduction mappings
 hydropathy_reduction = {"RNDEQHK": 0,
@@ -18,7 +21,7 @@ df = pd.read_csv(f"dataset/amp.csv")
 
 # 1. seq to vector
 
-# 1.1 without reduction
+# 1 without reduction
 stoi = {s: i for (i, s) in enumerate(sorted(set("".join(list(df["seq"])))))}
 df["no_reduction"] = df['seq'].apply(lambda row: create_vector(row, stoi))
 # 1.2 with reduction

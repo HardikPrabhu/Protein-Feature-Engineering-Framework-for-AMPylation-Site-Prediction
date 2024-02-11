@@ -6,6 +6,12 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 import numpy as np
+from xgboost import XGBClassifier
+from lightgbm import LGBMClassifier
+
+# Check if GPU is available
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 
 """
 Model options
@@ -15,7 +21,7 @@ Model options
   - support vector machine : "svm"
   - Logistic regression : "linear"
   - Neural net : "ann"
-  - Xgboost : "xgboost"
+  - Xgboost : "xgb"
   - LightGBM : "lgbm"
 
 """
@@ -99,24 +105,29 @@ class Model():
             self.model = LogisticRegression(**kwargs)
         if self.model_name == "ann":
             self.model = MyNet(**kwargs)
+            self.model.to(device)
+        if self.model_name == "xgb":
+            self.model = XGBClassifier(**kwargs)
+        if self.model_name == "lgbm":
+            self.model = LGBMClassifier(**kwargs)
+
 
     def fit(self, Xtrain, Ytrain, **kwargs):
         if self.model_name == "ann":
-            Xtrain = torch.tensor(Xtrain).float()
-            Ytrain = torch.tensor(np.array(Ytrain)).float().view(-1, 1)
+            Xtrain = torch.tensor(Xtrain,device=device).float()
+            Ytrain = torch.tensor(np.array(Ytrain),device=device).float().view(-1, 1)
         self.model.fit(Xtrain, Ytrain)
 
     def predict(self, X):
         if self.model_name == "ann":
-            X = torch.tensor(X).float()
-        return self.model.predict(X)
+            X = torch.tensor(X,device=device).float()
+        return self.model.predict(X).cpu()
 
     def predict_proba(self, Xtest):
-
         if self.model_name == "ann":
-            Xtest = torch.tensor(Xtest).float()
-        if self.model_name in ["rf", "svm", "linear"]:
+            Xtest = torch.tensor(Xtest,device=device).float()
+        if self.model_name in ["rf", "svm", "linear","xgb","lgbm"]:
             prob = self.model.predict_proba(Xtest)
             prob = prob[:, 1]
             return prob
-        return self.model.predict_proba(Xtest)
+        return self.model.predict_proba(Xtest).cpu()

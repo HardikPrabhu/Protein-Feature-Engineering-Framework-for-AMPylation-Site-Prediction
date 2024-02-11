@@ -7,7 +7,14 @@ from evaluation import classification_report
 from models import Model
 
 
-def get_combinations(lst):
+
+"""
+This script runs 10-folds cross validation over all combinations of features (610) with a given model and returns
+the result in form of a csv (1 row: 1 feature set). 
+"""
+
+
+def get_combinations(lst):  # for creating combinations of feature selection
     combinations = []
     for r in range(1, len(lst) + 1):
         combinations.extend(list(itertools.combinations(lst, r)))
@@ -23,7 +30,6 @@ model = None
 # Select -> random forest : "rf", support vector machine : "svm", logistic regression : "linear", Neural net : "ann"
 model_name = "ann"
 # ----------------------------------------------------------------------------------------------------------------------
-
 
 with open(f"processed_dataset/features_amp.pkl", "rb") as f:
     df = pickle.load(f)
@@ -47,7 +53,10 @@ if __name__ == "__main__":
                     test_X = data[test_index_vals]
                     test_y = y_data.iloc[test_index_vals]
                     feature_len = train_X.shape[-1]
-                    model = Model(model_name, input_dim=train_X.shape[1])
+                    if model_name == "ann":
+                        model = Model(model_name, input_dim=train_X.shape[1])
+                    else:
+                        model = Model(model_name)
                     model.fit(train_X, train_y)
                     pred = model.predict(test_X)
                     prob = model.predict_proba(test_X)

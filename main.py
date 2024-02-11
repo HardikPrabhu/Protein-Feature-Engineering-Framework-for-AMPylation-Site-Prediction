@@ -85,11 +85,9 @@ def create_model_data(df, include=["no_reduction", "hydro", "conform"],
                       type=["counts", "mat", "tfeat", "protvec"], offsets=[1], is_train=None):
     """
     Concatenate all the features to have a model input arrays : X (datapoints as rows),Y (labels for classification)
-    :param df: Processed dataset
-    :param include: list containing representations to use
-    :param type: extraction feature type
-    :param offsets: list of offsets for creating co-occurrence matrices
-    :param is_train: is it the training data (dataset has a column "is_Train"
+    :param df: Processed dataset :param include: list containing representations to use :param type: extraction
+    feature type :param offsets: list of offsets for creating co-occurrence matrices :param is_train: is it the
+    training data (dataset has a column "is_Train" used to select the data, None means take the dataset entirely)
     :return: numpy array of extracted features (1 data point per row) and classification labels
     """
 
