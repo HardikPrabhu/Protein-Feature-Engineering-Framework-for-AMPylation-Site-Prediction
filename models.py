@@ -121,13 +121,13 @@ class Model():
     def predict(self, X):
         if self.model_name == "ann":
             X = torch.tensor(X,device=device).float()
-        return self.model.predict(X).cpu()
-
+            return self.model.predict(X).cpu()
+        return self.model.predict(X)
     def predict_proba(self, Xtest):
         if self.model_name == "ann":
             Xtest = torch.tensor(Xtest,device=device).float()
+            prob = self.model.predict_proba(Xtest).cpu()
         if self.model_name in ["rf", "svm", "linear","xgb","lgbm"]:
             prob = self.model.predict_proba(Xtest)
             prob = prob[:, 1]
-            return prob
-        return self.model.predict_proba(Xtest).cpu()
+        return prob
