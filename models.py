@@ -98,18 +98,18 @@ class Model():
     def __init__(self, model_name="rf", **kwargs):
         self.model_name = model_name
         if self.model_name == "rf":
-            self.model = RandomForestClassifier(**kwargs)
+            self.model = RandomForestClassifier(**kwargs,random_state=42)
         if self.model_name == "svm":
-            self.model = SVC(probability=True, **kwargs)
+            self.model = SVC(probability=True, **kwargs,random_state=42)
         if self.model_name == "linear":
-            self.model = LogisticRegression(**kwargs)
+            self.model = LogisticRegression(**kwargs,random_state=42)
         if self.model_name == "ann":
             self.model = MyNet(**kwargs)
             self.model.to(device)
         if self.model_name == "xgb":
-            self.model = XGBClassifier(**kwargs)
+            self.model = XGBClassifier(**kwargs,random_state=42)
         if self.model_name == "lgbm":
-            self.model = LGBMClassifier(**kwargs)
+            self.model = LGBMClassifier(**kwargs,random_state=42)
 
 
     def fit(self, Xtrain, Ytrain, **kwargs):
